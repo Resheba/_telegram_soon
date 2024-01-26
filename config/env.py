@@ -9,6 +9,7 @@ load_dotenv(override=True)
 class Settings:
     # NEW VARS PUT BELOW
     TG_TOKEN: str = os.getenv('TG_TOKEN')
+    DB_DSN: str = os.getenv('DB_DSN')
 
     @classmethod
     def __get_vars__(cls) -> dict[str, str | None]:

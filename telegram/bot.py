@@ -1,6 +1,7 @@
 from aiogram import Bot, Dispatcher
 
 from config import Settings
+from .database import manager
 from .services import WelcomeRouter
 
 
@@ -11,4 +12,9 @@ class Telegram:
     @classmethod
     async def start(cls) -> None:
         cls._dp.include_routers(WelcomeRouter)
+        cls._dp.startup.register(cls.onstartup)
         await cls._dp.start_polling(cls._bot)
+
+    @staticmethod
+    async def onstartup() -> None:
+        await manager.connect()
