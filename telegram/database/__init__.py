@@ -1,2 +1,2 @@
-from .models import manager, User
+from .models import manager
 from .repos import UserRepository
