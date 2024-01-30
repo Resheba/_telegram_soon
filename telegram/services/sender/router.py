@@ -11,7 +11,7 @@ router: Router = Router(name='Sender')
 @router.message(Command('send'))
 async def send_command(message: Message, command: CommandObject):
     text: str = command.args
-    if text is None:
+    if not text:
         await message.answer('/send <text>')
         return
     
