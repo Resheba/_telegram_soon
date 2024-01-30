@@ -5,7 +5,6 @@ from pika.exchange_type import ExchangeType
 from pika.adapters.blocking_connection import BlockingChannel
 from pika.exceptions import StreamLostError
 
-
 class RabbitClient:
     _connection: BlockingConnection
     _channel: BlockingChannel
@@ -28,12 +27,11 @@ class RabbitClient:
     
     @classmethod
     def publish(cls, message: str, *, user_id: int | str) -> None:
-        print(cls._channel.is_open, cls._connection.is_open)
         try:
             cls._channel.basic_publish(exchange=cls._message_topic_name,
                                     routing_key=f'user.{user_id}',
                                     body=message)
-        except StreamLostError as ex:
+        except StreamLostError:
             cls.reconnect()
             cls._channel.basic_publish(exchange=cls._message_topic_name,
                                     routing_key=f'user.{user_id}',
@@ -43,7 +41,8 @@ class RabbitClient:
     def reconnect(cls) -> None:
         cls._connection: BlockingConnection = BlockingConnection(
             [
-                URLParameters(url=Settings.RABBITMQ_DSN)
+                URLParameters(url=Settings.RABBITMQ_DSN),
+                ConnectionParameters(heartbeat=10)
             ]
         )
         cls._channel: BlockingChannel = cls._connection.channel()
