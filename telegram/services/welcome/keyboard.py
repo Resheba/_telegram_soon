@@ -7,6 +7,8 @@ class TimeCallback(CallbackData, prefix='time'):
 
 
 class TimeKeyboard:
-    get_time_button: InlineKeyboardButton = InlineKeyboardButton(text='Вермя', callback_data=TimeCallback(city='Europe/Moscow').pack())
+    moscow_button: InlineKeyboardButton = InlineKeyboardButton(text='Moscow', callback_data=TimeCallback(city='Europe/Moscow').pack())
+    berlin_button: InlineKeyboardButton = InlineKeyboardButton(text='Berlin', callback_data=TimeCallback(city='Europe/Berlin').pack())
+    paris_button: InlineKeyboardButton = InlineKeyboardButton(text='Tokyo', callback_data=TimeCallback(city='Asia/Tokyo').pack())
 
-    keyboard: InlineKeyboardMarkup = InlineKeyboardMarkup(inline_keyboard=[[get_time_button]])
+    keyboard: InlineKeyboardMarkup = InlineKeyboardMarkup(inline_keyboard=[[moscow_button, berlin_button, paris_button]])
