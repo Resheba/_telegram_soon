@@ -1,6 +1,7 @@
 from aiogram import Router
 from aiogram.filters import Command, CommandObject
 from aiogram.types import Message
+from aiogram.types.reaction_type_emoji import ReactionTypeEmoji
 
 from rabbitmq import RabbitClient
 
@@ -17,5 +18,5 @@ async def send_command(message: Message, command: CommandObject):
     
     RabbitClient.publish(message=text, user_id=message.from_user.id)
 
-    await message.reply_sticker(sticker='CAACAgIAAxkBAAELR5ZluIp3NmAanO3G5hKfjj-80oHRTgACYgEAAiI3jgRUwxgqIX5s5DQE')
+    await message.react(reaction=[ReactionTypeEmoji(emoji='👍')], is_big=False)
     
