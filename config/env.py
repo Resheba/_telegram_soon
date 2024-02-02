@@ -1,5 +1,6 @@
 import os
 from dotenv import load_dotenv
+from typing import Final
 
 
 load_dotenv(override=True)
@@ -7,9 +8,9 @@ load_dotenv(override=True)
 
 class Settings:
     # NEW VARS PUT BELOW
-    TG_TOKEN: str = os.getenv('TG_TOKEN')
-    DB_DSN: str = os.getenv('DB_DSN')
-    RABBITMQ_DSN = os.getenv('RABBITMQ_DSN')
+    TG_TOKEN: Final[str] = os.getenv('TG_TOKEN')
+    DB_DSN: Final[str] = os.getenv('DB_DSN')
+    RABBITMQ_DSN: Final[str] = os.getenv('RABBITMQ_DSN')
 
     @classmethod
     def __get_vars__(cls) -> dict[str, str | None]:
